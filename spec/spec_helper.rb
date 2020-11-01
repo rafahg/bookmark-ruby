@@ -1,5 +1,15 @@
 # frozen_string_literal: true
+
+require_relative './setup_test_database'
+
 ENV['ENVIRONMENT'] = 'test'
+
+Rspec.configure do |config|
+  config.before(:each) do 
+    setup_test_database
+  end
+end
+
 # Set environment to "test"
 ENV['RACK_ENV'] = 'test'
 
