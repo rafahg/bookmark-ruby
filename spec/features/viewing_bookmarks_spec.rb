@@ -6,14 +6,11 @@ feature 'Viewing bookmarks' do
 end
 
 feature 'Viewing bookmarks' do
-  scenario 'A user can see bookmark' do
-    connection = PG.connect(dbname: 'bookmark_manager_test')
-
-    connection.exec("INSERT INTO bookmarks VALUES(1, 'http://www.makersacademy.com');")
-    connection.exec("INSERT INTO bookmarks VALUES(2, 'http://www.destroyallsoftware.com');")
-    connection.exec("INSERT INTO bookmarks VALUES(3, 'http://www.google.com');")
-    connection.exec("INSERT INTO bookmarks VALUES(4, 'http://www.elcomercio.es');")
-
+  scenario 'Visiting /bookmarks shows all the bookmarks' do
+    Bookmark.create(url: "http://www.makersacademy.com")
+    Bookmark.create(url: "http://www.destroyallsoftware.com")
+    Bookmark.create(url: "http://www.google.com")
+    Bookmark.create(url: "http://www.elcomercio.es")
     visit('/bookmarks')
 
     expect(page).to have_content "http://www.makersacademy.com"
